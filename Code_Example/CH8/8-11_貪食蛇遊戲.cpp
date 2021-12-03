@@ -1,14 +1,20 @@
 //filename :8-11
+//功能要求 :
+//1.以類別物件開發程式
+//2.遊戲玩家按下空白鍵，開始遊戲
+//3.蛇會自動前進，以鍵盤的方向鍵控制蛇的移動方向
+//4.每當蛇吃到食物後，長度會多出一截，計分增加100分
+//5.當蛇頭碰觸到邊界或自己的身體，則遊戲結束
 #include <iostream>
-#include <ctime>
-#include <cmath>
+#include <ctime>//時間日期
+#include <cmath>//數學運算
 #include <windows.h>
 #include <conio.h>
 #define true 1
 #define false 0
 using namespace std;
 
-void gotoxy(int xpos, int ypos)
+void gotoxy(int xpos, int ypos)//gotoxy(X,Y)控制游標移動位置的函式
 {
 	COORD scrn;
 	HANDLE hOuput = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -16,7 +22,7 @@ void gotoxy(int xpos, int ypos)
 	SetConsoleCursorPosition(hOuput,scrn);
 }
 
-void showCursor(int visible)
+void showCursor(int visible)//控制游標的顯示狀態是要顯示或隱藏
 {
 	CONSOLE_CURSOR_INFO ConCurInf;
 	HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -26,7 +32,7 @@ void showCursor(int visible)
 	SetConsoleCursorInfo(hStdOut, &ConCurInf);
 }
 
-void showField()
+void showField()//顯示邊界，即蛇的活動範圍
 {
 	int y, x;
 	for(y=0; y<20; y++)
@@ -40,28 +46,28 @@ void showField()
 
 class CSnake
 {
-private:
-	int sBody[1000][2];
-	int headX,headY;
-	int tailX,tailY;
-	int foodSiteX,foodSiteY;
-	int direction;
-	int isFoodEaten;
-	int bodyLenght;
-	int delayTime;
-	unsigned int eatenFood;
-public:
+private://資料成員
+	int sBody[1000][2];//二維陣列記錄蛇的每一截身體的座標位置；sBody[i][0]為第i截身體的x座標，sBody[i][1]為y座標
+	int headX,headY;//紀錄蛇頭的座標
+	int tailX,tailY;//紀錄蛇尾的座標
+	int foodSiteX,foodSiteY;//紀錄食物的座標
+	int direction;//蛇移動方向 1.上 2.下 3.左 4.右
+	int isFoodEaten;//旗標，表示食物被吃掉了沒?
+	int bodyLenght;//蛇身體的長度，會隨著吃到的食物數目而增加
+	int delayTime;//延遲時間，單位為ms
+	unsigned int eatenFood;//蛇已經吃到的食物數目
+public://成員函式
 	int gameOver;
-	void init();
-	void setSite(int i, int site_x, int site_y);
-	void showSnake();
-	void setStartSite();
-	void calShowFoodSite();
-	void isSnakeAlive();
-	void moveSnake();
-	void SnakeAteFood();
-	void controlSnake();
-	void printScore();
+	void init();//設定遊戲的初始條件
+	void setSite(int i, int site_x, int site_y);//重新紀錄蛇的每一截身體的座標
+	void showSnake();//顯示整條蛇
+	void setStartSite();//蛇在左上角，頭下尾上排成一行
+	void calShowFoodSite();//在遊戲範圍內，隨機出現食物
+	void isSnakeAlive();//檢查蛇是否碰到自己
+	void moveSnake();//檢查蛇是否撞牆；如不是，重新顯示蛇，以展示移動的效果
+	void SnakeAteFood();//檢查蛇是否吃到食物
+	void controlSnake();//檢查玩家所按下的方向鍵，再以方向鍵控制蛇轉彎的方向
+	void printScore();//顯示積分
 };
 
 void CSnake::init()
@@ -226,7 +232,7 @@ int main()
 		showField();
 		snake.printScore();
 		snake.showSnake();
-		while(gameKey != 32)
+		while(gameKey != 32)//等待玩家按下空白鍵，開始遊戲
 		{
 			gotoxy(52,1);
 			cout << "press SPACE bar to start.";
@@ -235,7 +241,7 @@ int main()
 			cout << " ";
 		};
 
-		while(!snake.gameOver)
+		while(!snake.gameOver)//反覆遊戲，直到蛇頭碰觸到邊界或自己的身體為止
 		{
 			snake.printScore();
 			snake.calShowFoodSite();
@@ -245,7 +251,7 @@ int main()
 			snake.SnakeAteFood();
 		}
 
-		while(1)
+		while(1)//詢問玩家是否要再玩一次
 		{
 			system("CLS");
 			snake.printScore();
