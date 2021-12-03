@@ -36,12 +36,12 @@ void showField()//顯示邊界，即蛇的活動範圍
 {
 	int y, x;
 	for(y=0; y<20; y++)
-	for(x=0; x<51; x+=2)
-	if(y==0 || y==19 || x==0 || x==50)
-	{
-		gotoxy(x, y);
-		cout << ".";
-	}
+		for(x=0; x<51; x+=2)
+			if(y==0 || y==19 || x==0 || x==50)
+			{
+				gotoxy(x, y);
+				cout << ".";
+			}
 }
 
 class CSnake
@@ -123,8 +123,8 @@ void CSnake::calShowFoodSite()
 void CSnake::isSnakeAlive()
 {
 	for(int i=1; i<bodyLenght; i++)
-	if(headX == sBody[i][0] && headY == sBody[i][1])
-	gameOver= true;
+		if(headX == sBody[i][0] && headY == sBody[i][1])
+			gameOver= true;
 }
 
 void CSnake::moveSnake()
@@ -215,7 +215,7 @@ void CSnake::controlSnake()
 void CSnake::printScore()
 {
 	if (!gameOver)
-	gotoxy(52,0);
+		gotoxy(52,0);
 	cout << "points : " << eatenFood * 100;
 }
 
