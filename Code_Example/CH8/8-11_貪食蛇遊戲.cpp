@@ -120,14 +120,14 @@ void CSnake::calShowFoodSite()//在遊戲範圍內，隨機出現食物
 	cout << "X";
 }
 
-void CSnake::isSnakeAlive()
+void CSnake::isSnakeAlive()//旗標，表示食物被吃掉了沒?
 {
 	for(int i=1; i<bodyLenght; i++)
 		if(headX == sBody[i][0] && headY == sBody[i][1])
 			gameOver= true;
 }
 
-void CSnake::moveSnake()
+void CSnake::moveSnake()//檢查蛇是否撞牆；如不是，重新顯示蛇，以展示移動的效果
 {
 	int i;
 	if(gameOver == false)
@@ -151,7 +151,7 @@ void CSnake::moveSnake()
 	}
 }
 
-void CSnake::SnakeAteFood()
+void CSnake::SnakeAteFood()//檢查蛇是否吃到食物
 {
 	if(sBody[0][0] == foodSiteX && sBody[0][1] == foodSiteY)
 	{
@@ -162,7 +162,7 @@ void CSnake::SnakeAteFood()
 	}
 }
 
-void CSnake::controlSnake()
+void CSnake::controlSnake()//檢查玩家所按下的方向鍵，再以方向鍵控制蛇轉彎的方向
 {
 	int keyinFirst, keyinSecond;
 	if( kbhit() )
@@ -212,7 +212,7 @@ void CSnake::controlSnake()
 	}
 }
 
-void CSnake::printScore()
+void CSnake::printScore()//顯示積分
 {
 	if (!gameOver)
 		gotoxy(52,0);
