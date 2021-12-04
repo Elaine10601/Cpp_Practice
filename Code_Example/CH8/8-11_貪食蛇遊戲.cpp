@@ -70,7 +70,7 @@ public://成員函式
 	void printScore();//顯示積分
 };
 
-void CSnake::init()
+void CSnake::init()//設定遊戲的初始條件
 {
 	bodyLenght=5;
 	headX=1;
@@ -82,13 +82,13 @@ void CSnake::init()
 	delayTime=250;
 }
 
-void CSnake::setSite(int i, int site_x, int site_y)
+void CSnake::setSite(int i, int site_x, int site_y)//重新紀錄蛇的每一截身體的座標
 {
 	sBody[i][0] = site_x;
 	sBody[i][1] = site_y;
 }
 
-void CSnake::showSnake()
+void CSnake::showSnake()//顯示整條蛇
 {
 	for(int i=0; i<bodyLenght; i++)
 	{
@@ -100,7 +100,7 @@ void CSnake::showSnake()
 	}
 }
 
-void CSnake::setStartSite()
+void CSnake::setStartSite()//蛇在左上角，頭下尾上排成一行
 {
 	int i;
 	sBody[0][0] = sBody[1][0] = sBody[2][0] = sBody[3][0] = sBody[4][0] = 1;
@@ -108,7 +108,7 @@ void CSnake::setStartSite()
 		sBody[i][1] = abs(5 - i);
 }
 
-void CSnake::calShowFoodSite()
+void CSnake::calShowFoodSite()//在遊戲範圍內，隨機出現食物
 {
 	if( !isFoodEaten )
 	{
